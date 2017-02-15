@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>B.A.B.Y.T.E</title>
+  </head>
+  <body>
+    <h1>Bienvenue sur Babyte</h1>
+    <nav>
+      <ul>
+        <li><a href="home.html">Accueil</a></li>
+        <li><a href="list.html">Liste des Matches</a></li>
+      </ul>
+    </nav>
+    <h2>Ajout d'un match</h2>
+    <form action="{{ url_for('add_match') }}" method=post>
+      <fieldset>
+        <legend>Équipe 1</legend>
+        <label>
+          Joueur 1
+          <select name="team1_player1">
+            <option value="Hugo">Hugo</option>
+            <option value="Jean-Pierre">Jean-Pierre</option>
+            <option value="Clément">Clément</option>
+            <option value="Annabelle">Annabelle</option>
+            <option value="Isabelle">Isabelle</option>
+            <option value="Maxime">Maxime</option>
+          </select>
+        </label>
+        <label>
+          Joueur 2
+          <select name="team1_player2">
+            <option value="Hugo">Hugo</option>
+            <option value="Jean-Pierre">Jean-Pierre</option>
+            <option value="Clément">Clément</option>
+            <option value="Annabelle">Annabelle</option>
+            <option value="Isabelle">Isabelle</option>
+            <option value="Maxime">Maxime</option>
+          </select>
+        </label>
+        <label>
+          Score
+          <input name="score_team1">
+        </label>
+      </fieldset>
+      <fieldset>
+        <legend>Équipe 2</legend>
+        <label>
+          Joueur 1
+          <select name="team2_player1">
+            <option value="Hugo">Hugo</option>
+            <option value="Jean-Pierre">Jean-Pierre</option>
+            <option value="Clément">Clément</option>
+            <option value="Annabelle">Annabelle</option>
+            <option value="Isabelle">Isabelle</option>
+            <option value="Maxime">Maxime</option>
+          </select>
+        </label>
+        <label>
+          Joueur 2
+          <select name="team2_player2">
+            <option value="Hugo">Hugo</option>
+            <option value="Jean-Pierre">Jean-Pierre</option>
+            <option value="Clément">Clément</option>
+            <option value="Annabelle">Annabelle</option>
+            <option value="Isabelle">Isabelle</option>
+            <option value="Maxime">Maxime</option>
+          </select>
+        </label>
+        <label>
+          Score
+          <input name="score_team2">
+        </label>
+      </fieldset>
+      <input type="submit">
+    </form>
+  </body>
+</html> 

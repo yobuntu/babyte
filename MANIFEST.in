@@ -1,0 +1,3 @@
+﻿graft babyte/templates
+graft babyte/static
+include babyte/babyte.sql
