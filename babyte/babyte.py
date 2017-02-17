@@ -69,7 +69,7 @@ def add_match():
 def list():
     db = get_db()
     cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id desc')
-    entries = cur.fetchall()
+    match = cur.fetchall()
     return render_template('list.html', match=match)
 
 
