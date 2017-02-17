@@ -74,5 +74,12 @@
       </fieldset>
       <input type="submit">
     </form>
+    <h2>Classement</h2>
+    <dl>
+    {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
+      <dt>{{ user.name }}</dt>
+      <dd>{{ user.ranking }}</dd>
+    {% endfor %}
+    </dl>
   </body>
 </html> 
