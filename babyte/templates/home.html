@@ -75,11 +75,14 @@
       <input type="submit">
     </form>
     <h2>Classement</h2>
-    <dl>
-    {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
-      <dt>{{ user.name }}</dt>
-      <dd>{{ user.ranking }}</dd>
-    {% endfor %}
-    </dl>
+    <table>
+      {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
+        <tr>
+          <td>{{ loop.index }}</td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.ranking }}</td>
+        </tr>
+      {% endfor %}
+    </table>
   </body>
 </html> 
