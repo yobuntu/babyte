@@ -1,9 +1,14 @@
 # all the imports
+import json
 import os
-import sqlite3
+from functools import wraps
+
 from flask import (
    Flask, request, session, g, redirect, url_for, abort,
    render_template, flash)
+from oauth2client.client import OAuth2WebServerFlow
+import httplib2
+import sqlite3
         
 app = Flask(__name__) #create the application instance :)
 app.config.update(dict(
@@ -21,6 +26,13 @@ class User:
         self.ranking = 1000
         self.number_of_match = 0
 
+FLOW = OAuth2WebServerFlow(
+    client_id=app.config['OAUTH_CLIENT_ID'],
+    client_secret=app.config['OAUTH_SECRET_KEY'],
+    redirect_uri=app.config['OAUTH_REDIRECT'],
+    scope=app.config['OAUTH_SCOPE'],
+    user_agent='babyte/1.0')
+
 
 def connect_db():
     """Connects to the specific databse. """
@@ -34,6 +46,44 @@ def get_db():
         g.sqlite_db = connect_db()
         return g.sqlite_db
 
+def auth(function):
+    """Wrapper checking if the user is logged in."""
+    @wraps(function)
+    def wrapper(*args, **kwargs):
+        if session.get('users') and session.get('person'):
+            return function(*args, **kwargs)
+        return redirect(FLOW.step1_get_authorize_url())
+    return wrapper
+    
+@app.route('/oauth2callback')
+def oauth2callback():
+    code = request.args.get('code')
+    credentials = FLOW.step2_exchange(code)
+    http = credentials.authorize(httplib2.Http())
+    _, content = http.request(
+        "https://people.googleapis.com/v1/people/me")
+    data = json.loads(content.decode('utf-8'))
+    if data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
+        if 'names' in data:
+            session['person'] = data['names'][0]['displayName']
+        _, users_content = http.request(
+            "https://people.googleapis.com/v1/people/me/connections"
+            "?requestMask.includeField=person.names%2Cperson.emailAddresses"
+            "&pageSize=500")
+        users_data = json.loads(users_content.decode('utf-8'))
+        session['users'] = []
+        for connection in users_data['connections']:
+            if 'names' in connection and 'emailAddresses' in connection:
+                for address in connection['emailAddresses']:
+                    if address['value'].endswith('@kozea.fr'):
+                        session['users'].append('%s %s' % (
+                            connection['names'][0].get('givenName', ''),
+                            connection['names'][0].get('familyName', '')))
+                        break
+    else:
+        return redirect(url_for('not_allowed'))
+    return redirect(url_for('home'))
+        
 @app.teardown_appcontext
 def close_db(error):
     """Closes the database again at the end of the request."""
@@ -52,12 +102,14 @@ def initdb_command():
     init_db()
     print('Initialized the database.')
 
-@app.route('/')    
+@app.route('/')
+@auth    
 def home():
     ranking = compute_ranking()
     return render_template('home.html', ranking=ranking)
 
 @app.route('/add', methods=['POST'])
+@auth
 def add_match():
     db = get_db()
     db.execute('insert into match (team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2) values (?, ?, ? ,?, ?, ?)', [request.form['team1_player1'], request.form['team1_player2'], request.form['team2_player1'], request.form['team2_player2'], request.form['score_team1'], request.form['score_team2']])
@@ -65,7 +117,8 @@ def add_match():
     flash('Match ajouté avec succès !')
     return redirect(url_for('home'))
 
-@app.route('/list')    
+@app.route('/list')
+@auth    
 def list():
     db = get_db()
     cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id desc')
@@ -75,9 +128,7 @@ def list():
 
 def compute_ranking():
     """Get the list of all users with their current score."""
-    users = {name: User(name) for name in (
-        'Hugo', 'Jean-Pierre', 'Clément', 'Annabelle', 'Isabelle',
-        'Maxime', '(Vide)')}
+    users = {name: User(name) for name in session["users"]}
 
     db = get_db()
     cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id asc')
@@ -130,7 +181,6 @@ def compute_fictive_score(score_team, score_opponent, elo_team, elo_opponent,
         score_team, score_opponent)
     result = 1 if score_team > score_opponent else 0
     score = expertise * goal_difference * (result - expected_result)
-    print(expertise, goal_difference, score_team, score_opponent, result, expected_result, score)
     return score
     
 

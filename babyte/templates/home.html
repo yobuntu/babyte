@@ -14,68 +14,27 @@
     </nav>
     <h2>Ajout d'un match</h2>
     <form action="{{ url_for('add_match') }}" method=post>
+    {% for team_number in (1,2) %}
       <fieldset>
-        <legend>Équipe 1</legend>
+        <legend>Équipe {{ team_number }}</legend>
+        {% for player_number in (1,2) %}
         <label>
-          Joueur 1
-          <select name="team1_player1">
-            <option value="Hugo">Hugo</option>
-            <option value="Jean-Pierre">Jean-Pierre</option>
-            <option value="Clément">Clément</option>
-            <option value="Annabelle">Annabelle</option>
-            <option value="Isabelle">Isabelle</option>
-            <option value="Maxime">Maxime</option>
-            <option value="(Vide)">(Vide)</option>
+          Joueur {{ player_number }} 
+          <select name="team{{ team_number }}_player{{ player_number }}">
+            {% for user in session.users | sort %}
+              <option value="{{ user }}">{{ user }}</option>
+            {% else %}
+              <option value="">No owner</option>
+            {% endfor %}
           </select>
         </label>
-        <label>
-          Joueur 2
-          <select name="team1_player2">
-            <option value="Hugo">Hugo</option>
-            <option value="Jean-Pierre">Jean-Pierre</option>
-            <option value="Clément">Clément</option>
-            <option value="Annabelle">Annabelle</option>
-            <option value="Isabelle">Isabelle</option>
-            <option value="Maxime">Maxime</option>
-            <option value="(Vide)">(Vide)</option>
-          </select>
-        </label>
+        {% endfor %}
         <label>
           Score
-          <input name="score_team1">
+          <input name="score_team{{ team_number }}">
         </label>
       </fieldset>
-      <fieldset>
-        <legend>Équipe 2</legend>
-        <label>
-          Joueur 1
-          <select name="team2_player1">
-            <option value="Hugo">Hugo</option>
-            <option value="Jean-Pierre">Jean-Pierre</option>
-            <option value="Clément">Clément</option>
-            <option value="Annabelle">Annabelle</option>
-            <option value="Isabelle">Isabelle</option>
-            <option value="Maxime">Maxime</option>
-            <option value="(Vide)">(Vide)</option>
-          </select>
-        </label>
-        <label>
-          Joueur 2
-          <select name="team2_player2">
-            <option value="Hugo">Hugo</option>
-            <option value="Jean-Pierre">Jean-Pierre</option>
-            <option value="Clément">Clément</option>
-            <option value="Annabelle">Annabelle</option>
-            <option value="Isabelle">Isabelle</option>
-            <option value="Maxime">Maxime</option>
-            <option value="(Vide)">(Vide)</option>
-          </select>
-        </label>
-        <label>
-          Score
-          <input name="score_team2">
-        </label>
-      </fieldset>
+    {% endfor %}
       <input type="submit">
     </form>
     <h2>Classement</h2>
