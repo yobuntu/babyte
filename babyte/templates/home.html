@@ -21,10 +21,9 @@
         <label>
           Joueur {{ player_number }} 
           <select name="team{{ team_number }}_player{{ player_number }}">
+            <option value=""></option>
             {% for user in session.users | sort %}
               <option value="{{ user }}">{{ user }}</option>
-            {% else %}
-              <option value="">No owner</option>
             {% endfor %}
           </select>
         </label>

@@ -134,8 +134,8 @@ def compute_ranking():
     cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id asc')
     matches = cur.fetchall()
     for match in matches:
-        elo(users[match['team1_player1']], users[match['team1_player2']],
-            users[match['team2_player1']], users[match['team2_player2']],
+        elo(users[match['team1_player1']], users.get(match['team1_player2']),
+            users[match['team2_player1']], users.get(match['team2_player2']),
             match['score_team1'], match['score_team2'])
     return users
 
