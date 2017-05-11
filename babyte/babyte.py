@@ -39,10 +39,10 @@ class User:
         self.number_of_match = 0
 
 FLOW = OAuth2WebServerFlow(
-    client_id=app.config['OAUTH_CLIENT_ID'],
-    client_secret=app.config['OAUTH_SECRET_KEY'],
-    redirect_uri=app.config['OAUTH_REDIRECT'],
-    scope=app.config['OAUTH_SCOPE'],
+    client_id='920868201743-f5p9lof7deojohp5n7t4rail5q4t80g8.apps.googleusercontent.com',
+    client_secret='lZf7gI5QYYWbaDOvUG_ARH6Q',
+    redirect_uri='http://localhost:5000/oauth2callback',
+    scope=['https://www.googleapis.com/auth/contacts.readonly'],
     user_agent='babyte/1.0')
 
 
@@ -75,7 +75,7 @@ def oauth2callback():
     _, content = http.request(
         "https://people.googleapis.com/v1/people/me")
     data = json.loads(content.decode('utf-8'))
-    if data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
+    if True and data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
         if 'names' in data:
             session['person'] = data['names'][0]['displayName']
         _, users_content = http.request(
@@ -122,6 +122,8 @@ def home():
 @app.route('/add', methods=['POST'])
 @auth
 def add_match():
+    if not request.form['team1_player1'] or not request.form['team2_player1']:
+        return redirect(url_for('home'))
     db = get_db()
     db.execute('insert into match (team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2) values (?, ?, ? ,?, ?, ?)', [request.form['team1_player1'], request.form['team1_player2'], request.form['team2_player1'], request.form['team2_player2'], request.form['score_team1'], request.form['score_team2']])
     db.commit()
