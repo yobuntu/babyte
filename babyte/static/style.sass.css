@@ -3,7 +3,7 @@ body {
   box-sizing: border-box;
   color: #1C3740;
   display: flex;
-  flex-wrap: wrap;
+  flex-flow: wrap;
   font-family: 'Lora', serif;
   height: 100vh;
   margin: 0;
@@ -11,12 +11,15 @@ body {
 
 header {
   width: 100%; }
+  header h1 {
+    display: none; }
 
 #new-game {
   background: linear-gradient(-6deg, #1C3740 0%, #1C3740 49.75%, white 49.9%, white 50.1%, #0a7bb8 50.25%, #0a7bb8 100%);
   color: #fff;
   display: flex;
   flex-direction: column;
+  height: 100%;
   justify-content: space-around;
   position: relative;
   width: 50%; }
@@ -60,11 +63,11 @@ form {
     font-size: 1.75em;
     justify-content: center;
     left: 50%;
-    height: 3rem;
+    height: 3.5rem;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 3rem; }
+    width: 3.5rem; }
 
 fieldset {
   border-style: hidden;
@@ -146,11 +149,55 @@ label:last-of-type {
       outline: none; }
 
 input[type="submit"] {
+  border-style: hidden;
+  border-bottom: 4px solid #0a7bb8;
   color: #0a7bb8;
   display: block;
   font-family: 'Leckerli One', cursive;
   font-size: 1.5em;
   margin: 0 auto;
   padding: .25em 1em; }
+
+#ranking {
+  margin: auto; }
+  #ranking h2 {
+    font-size: 0;
+    text-align: center; }
+    #ranking h2::before {
+      content: url("img/cup.png"); }
+  #ranking tr {
+    display: block;
+    padding: 1rem; }
+    #ranking tr:nth-child(1) {
+      font-family: 'Leckerli One', cursive;
+      font-size: 1.5em; }
+      #ranking tr:nth-child(1) td:first-child {
+        background: gold;
+        border-radius: 100%;
+        text-align: center;
+        height: 2em;
+        width: 2em; }
+    #ranking tr:nth-child(2) {
+      font-family: 'Leckerli One', cursive;
+      font-size: 1.2em; }
+      #ranking tr:nth-child(2) td:first-child {
+        background: silver;
+        border-radius: 100%;
+        text-align: center;
+        height: 2em;
+        width: 2em; }
+    #ranking tr:nth-child(3) {
+      font-family: 'Leckerli One', cursive;
+      font-size: 1.1em; }
+      #ranking tr:nth-child(3) td:first-child {
+        background: #cd7f32;
+        border-radius: 100%;
+        text-align: center;
+        height: 2em;
+        width: 2em; }
+    #ranking tr:nth-child(2n) {
+      background: rgba(10, 123, 184, 0.1); }
+    #ranking tr td:nth-child(2) {
+      white-space: nowrap; }
 
 /*# sourceMappingURL=style.sass.css.map */

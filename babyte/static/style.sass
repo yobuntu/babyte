@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Leckerli+One|Lora:400i')
+@import mixins
 
 
 // Blue #0A7CBA
@@ -14,12 +15,11 @@ $secondary-hue-2: adjust-color($secondary, $saturation: -34%, $lightness: 13%)
 $secondary-hue-3: adjust-color($secondary, $lightness: -10%)
 
 
-
 body
   box-sizing: border-box
   color: $secondary
   display: flex
-  flex-wrap: wrap
+  flex-flow: wrap
   font-family: 'Lora', serif
   height: 100vh
   margin: 0
@@ -28,12 +28,17 @@ body
 header
   width: 100%
 
+  h1
+    display: none
+
 #new-game
   background: linear-gradient(-6deg, $secondary 0%, $secondary 49.75%, white 49.9%, white 50.1%, $primary 50.25%, $primary 100%)
   color: #fff
   display: flex
   flex-direction: column
+  height: 100%
   justify-content: space-around
+  // order: -1
   position: relative
   width: 50%
 
@@ -80,11 +85,11 @@ form
     font-size: 1.75em
     justify-content: center
     left: 50%
-    height: 3rem
+    height: 3.5rem
     position: absolute
     top: 50%
     transform: translate(-50%, -50%)
-    width: 3rem
+    width: 3.5rem
 
 fieldset
   border-style: hidden
@@ -179,6 +184,7 @@ label
         outline: none
 
 input[type="submit"]
+  border-style: hidden
   border-bottom: 4px solid $primary
   color: $primary
   display: block
@@ -186,3 +192,33 @@ input[type="submit"]
   font-size: 1.5em
   margin: 0 auto
   padding: .25em 1em
+
+#ranking
+  margin: auto
+  // overflow-y: scroll
+
+  h2
+    font-size: 0
+    text-align: center
+
+    &::before
+      content: url('img/cup.png')
+
+  tr
+    display: block
+    padding: 1rem
+
+    &:nth-child(1)
+      +medal(gold, 1.5em)
+
+    &:nth-child(2)
+      +medal(silver, 1.2em)
+
+    &:nth-child(3)
+      +medal(#cd7f32, 1.1em)
+
+    &:nth-child(2n)
+      background: rgba($primary, .1)
+
+    td:nth-child(2)
+      white-space: nowrap
