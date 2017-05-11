@@ -1,0 +1,156 @@
+@import url("https://fonts.googleapis.com/css?family=Leckerli+One|Lora:400i");
+body {
+  box-sizing: border-box;
+  color: #1C3740;
+  display: flex;
+  flex-wrap: wrap;
+  font-family: 'Lora', serif;
+  height: 100vh;
+  margin: 0;
+  padding: 10px; }
+
+header {
+  width: 100%; }
+
+#new-game {
+  background: linear-gradient(-6deg, #1C3740 0%, #1C3740 49.75%, white 49.9%, white 50.1%, #0a7bb8 50.25%, #0a7bb8 100%);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  width: 50%; }
+  #new-game::before, #new-game::after {
+    content: '';
+    flex: 1; }
+  #new-game h2 {
+    font-family: 'Leckerli One', cursive;
+    font-size: 2em;
+    font-weight: normal;
+    line-height: 1em;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+    transform: rotate(-12.5deg);
+    width: min-content;
+    z-index: 9; }
+    #new-game h2::before {
+      background: #075b88;
+      border-radius: 100%;
+      content: '';
+      display: block;
+      height: 3em;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      position: absolute;
+      width: 3em;
+      z-index: -1; }
+
+form {
+  flex: 1; }
+  form::after {
+    align-items: center;
+    background: #fff;
+    border-radius: 100%;
+    color: #0a7bb8;
+    content: 'vs';
+    display: flex;
+    font-family: 'Leckerli One', cursive;
+    font-size: 1.75em;
+    justify-content: center;
+    left: 50%;
+    height: 3rem;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 3rem; }
+
+fieldset {
+  border-style: hidden;
+  flex: 1;
+  margin: 0;
+  padding: 2em 4em; }
+  fieldset legend {
+    background: inherit;
+    color: white;
+    float: left;
+    font-family: 'Leckerli One', cursive;
+    font-size: 1.75em;
+    margin-bottom: 2rem; }
+    fieldset legend::before {
+      background: url("img/t-shirt.png") center no-repeat, #075b88;
+      border-radius: 100%;
+      content: '';
+      display: inline-block;
+      height: 1em;
+      margin-right: 10px;
+      width: 1em; }
+  fieldset legend::before, fieldset select, fieldset input {
+    background-color: #3c97c8; }
+  fieldset + fieldset legend::before, fieldset + fieldset select, fieldset + fieldset input {
+    background-color: #4b5153; }
+  fieldset + fieldset label:not(:last-of-type) select {
+    border-top: 4px solid #0c191d; }
+
+label select, label input {
+  color: inherit;
+  font-family: inherit; }
+
+label:not(:last-child) {
+  display: block;
+  font-size: 0;
+  line-height: 2rem;
+  margin-bottom: 2rem;
+  width: calc(100% - 8rem); }
+  label:not(:last-child) select {
+    border-style: hidden;
+    border-bottom-left-radius: .25em;
+    border-bottom-right-radius: .25em;
+    border-top: 4px solid #075b88;
+    display: block;
+    font-size: 14pt;
+    height: 3rem;
+    margin-top: -3rem;
+    padding: 0 .75em;
+    transition: background .25s, color .25s;
+    width: 100%; }
+    label:not(:last-child) select:blank {
+      background: red; }
+    label:not(:last-child) select:focus {
+      background: #fff;
+      color: #1C3740;
+      outline: none; }
+    label:not(:last-child) select option {
+      line-height: 3; }
+
+label:last-of-type {
+  float: right;
+  font-size: 0;
+  height: 7rem;
+  margin-top: -9rem;
+  width: 7rem; }
+  label:last-of-type input {
+    box-shadow: 0 0 0 2pt inherit;
+    border-style: hidden;
+    border-radius: 100%;
+    font-size: 3.5rem;
+    font-weight: bold;
+    line-height: 7rem;
+    height: 100%;
+    text-align: center;
+    transition: box-shadow .25s;
+    width: 100%; }
+    label:last-of-type input:focus {
+      box-shadow: 0 0 0 2pt #fff;
+      outline: none; }
+
+input[type="submit"] {
+  color: #0a7bb8;
+  display: block;
+  font-family: 'Leckerli One', cursive;
+  font-size: 1.5em;
+  margin: 0 auto;
+  padding: .25em 1em; }
+
+/*# sourceMappingURL=style.sass.css.map */

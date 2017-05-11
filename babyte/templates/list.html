@@ -3,15 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <title>B.A.B.Y.T.E</title>
+    <link rel="stylesheet" href="static/style.sass.css">
   </head>
   <body>
-    <h1>Bienvenue sur Babyte</h1>
-    <nav>
-      <ul>
-        <li><a href="/"> Accueil </a></li>
-        <li><a href="/list"> Liste des Matches </a></li>
-      </ul>
-    </nav>
+    <header>
+      <h1>Bienvenue sur Babyte</h1>
+      <nav>
+        <ul>
+          <li><a href="/"> Accueil </a></li>
+          <li><a href="/list"> Liste des Matches </a></li>
+        </ul>
+      </nav>
+    </header>
     <h1>Liste des Matches Babyte-Kozea</h1>
     <table>
       {% for match in matches %}
@@ -25,4 +28,3 @@
     </table>
   </body>
 </html>
-    

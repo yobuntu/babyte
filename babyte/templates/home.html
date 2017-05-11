@@ -3,48 +3,55 @@
   <head>
     <meta charset="utf-8" />
     <title>B.A.B.Y.T.E</title>
+    <link rel="stylesheet" href="static/style.sass.css">
   </head>
   <body>
-    <h1>Bienvenue sur Babyte</h1>
-    <nav>
-      <ul>
-        <li><a href="/"> Accueil </a></li>
-        <li><a href="/list"> Liste des Matches </a></li>
-      </ul>
-    </nav>
-    <h2>Ajout d'un match</h2>
-    <form action="{{ url_for('add_match') }}" method=post>
-    {% for team_number in (1,2) %}
-      <fieldset>
-        <legend>Équipe {{ team_number }}</legend>
-        {% for player_number in (1,2) %}
-        <label>
-          Joueur {{ player_number }} 
-          <select name="team{{ team_number }}_player{{ player_number }}">
-            <option value=""></option>
-            {% for user in session.users | sort %}
-              <option value="{{ user }}">{{ user }}</option>
-            {% endfor %}
-          </select>
-        </label>
-        {% endfor %}
-        <label>
-          Score
-          <input name="score_team{{ team_number }}">
-        </label>
-      </fieldset>
-    {% endfor %}
-      <input type="submit">
-    </form>
-    <h2>Classement</h2>
-    <table>
-      {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
-        <tr>
-          <td>{{ loop.index }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.ranking }}</td>
-        </tr>
+    <header>
+      <h1>Bienvenue sur Babyte</h1>
+      <nav>
+        <ul>
+          <li><a href="/"> Accueil </a></li>
+          <li><a href="/list"> Liste des Matches </a></li>
+        </ul>
+      </nav>
+    </header>
+    <section id="new-game">
+      <h2>Nouvelle partie</h2>
+      <form action="{{ url_for('add_match') }}" method=post>
+      {% for team_number in (1,2) %}
+        <fieldset>
+          <legend>Team {{ team_number }}</legend>
+          {% for player_number in (1,2) %}
+          <label>
+            Joueur {{ player_number }}
+            <select name="team{{ team_number }}_player{{ player_number }}">
+              <option value=""></option>
+              {% for user in session.users | sort %}
+                <option value="{{ user }}">{{ user }}</option>
+              {% endfor %}
+            </select>
+          </label>
+          {% endfor %}
+          <label>
+            Score
+            <input name="score_team{{ team_number }}">
+          </label>
+        </fieldset>
       {% endfor %}
-    </table>
+        <input type="submit">
+      </form>
+    </section>
+    <section id="ranking">
+      <h2>Classement</h2>
+      <table>
+        {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
+          <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.ranking }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+    </section>
   </body>
-</html> 
+</html>
