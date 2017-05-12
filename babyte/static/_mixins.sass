@@ -9,3 +9,17 @@
 
   td:first-child
     font-family: 'Leckerli One', cursive
+
+=content-circle($bg-color, $display, $size, $content:'')
+  background: $bg-color
+  border-radius: 100%
+  content: $content
+  display: $display
+  height: $size
+  width: $size
+
+=center-absolute
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  position: absolute

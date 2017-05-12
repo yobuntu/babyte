@@ -19,11 +19,11 @@ header ul {
   header ul li + li::before {
     background: #0a7bb8;
     border-radius: 100%;
-    content: '';
+    content: "";
     display: inline-block;
-    height: .5em;
-    margin: 0 1em;
-    width: .5em; }
+    height: 0.5em;
+    width: 0.5em;
+    margin: 0 1em; }
   header ul li a {
     color: inherit;
     font-family: 'Leckerli One', cursive;
@@ -40,73 +40,68 @@ form {
   height: calc(100% - 20px);
   justify-content: space-around;
   left: 10px;
-  padding: 2.5% 7.5%;
+  padding: 2% 7.5%;
   position: fixed;
   top: 10px;
   width: calc(50% - 10px); }
+  form::before {
+    background: #fff;
+    border-radius: 100%;
+    content: "vs";
+    display: flex;
+    height: 3.5rem;
+    width: 3.5rem;
+    align-items: center;
+    color: #0a7bb8;
+    font-family: 'Leckerli One', cursive;
+    font-size: 1.75em;
+    justify-content: center; }
   form h2 {
     font-family: 'Leckerli One', cursive;
     font-size: 2.5em;
     font-weight: normal;
     line-height: 1em;
     margin: 0;
-    position: relative;
-    text-align: center;
+    order: -2;
     transform: rotate(-12.5deg);
     width: min-content; }
     form h2::before {
-      background: #075b88;
-      border-radius: 100%;
-      content: '';
-      display: block;
-      height: 3em;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
       position: absolute;
+      background: #075b88;
+      border-radius: 100%;
+      content: "";
+      display: block;
+      height: 3em;
       width: 3em;
       z-index: -1; }
-  form::after {
-    align-items: center;
-    background: #fff;
-    border-radius: 100%;
-    color: #0a7bb8;
-    content: 'vs';
-    display: flex;
-    font-family: 'Leckerli One', cursive;
-    font-size: 1.75em;
-    justify-content: center;
-    left: 50%;
-    height: 3.5rem;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 3.5rem; }
-
-fieldset {
-  align-self: stretch;
-  border-style: hidden; }
-  fieldset legend {
-    background: inherit;
-    color: white;
-    float: left;
-    font-family: 'Leckerli One', cursive;
-    font-size: 1.75em;
-    margin-bottom: 2rem; }
-    fieldset legend::before {
-      background: url("img/t-shirt.png") center no-repeat, #075b88;
-      border-radius: 100%;
-      content: '';
-      display: inline-block;
-      height: 1em;
-      margin-right: 10px;
-      width: 1em; }
-  fieldset legend::before, fieldset select, fieldset input {
-    background-color: #3c97c8; }
-  fieldset + fieldset legend::before, fieldset + fieldset select, fieldset + fieldset input {
-    background-color: #4b5153; }
-  fieldset + fieldset label:not(:last-of-type) select {
-    border-top: 4px solid #0c191d; }
+  form fieldset {
+    align-self: stretch;
+    border-style: hidden;
+    margin: 0;
+    padding: 0; }
+    form fieldset:first-of-type {
+      order: -1; }
+    form fieldset legend {
+      font-family: 'Leckerli One', cursive;
+      font-size: 1.75em;
+      margin-bottom: 2rem; }
+      form fieldset legend::before {
+        background: url("img/t-shirt.png") center no-repeat, #075b88;
+        border-radius: 100%;
+        content: "";
+        display: inline-block;
+        height: 1em;
+        width: 1em;
+        margin-right: .5em; }
+    form fieldset select, form fieldset input {
+      background-color: #3c97c8; }
+    form fieldset + fieldset legend::before, form fieldset + fieldset select, form fieldset + fieldset input {
+      background-color: #4b5153; }
+    form fieldset + fieldset label:not(:last-of-type) select {
+      border-top: 4px solid #0c191d; }
 
 label select, label input {
   color: inherit;
