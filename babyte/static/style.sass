@@ -5,21 +5,41 @@
 
 
 body
-  box-sizing: border-box
   color: $secondary
-  display: flex
-  flex-direction: column
   font-family: 'Lora', serif
-  height: 100vh
   margin: 0
-  position: relative
 
-header, table
-  margin-left: auto
-  width: calc(50% - 20px)
+  header, table, & > h2
+    margin-left: auto
+    width: 50%
 
-h1
-  display: none
+header
+  h1
+    display: none
+
+  ul
+    display: flex
+    justify-content: center
+    list-style-type: none
+    margin: 2em 0 4em
+    padding: 0
+
+    li
+      & + li::before
+        background: $primary
+        border-radius: 100%
+        content: ''
+        display: inline-block
+        height: .5em
+        margin: 0 1em
+        width: .5em
+
+      a
+        color: inherit
+        font-family: 'Leckerli One', cursive
+        font-size: 1.5em
+        text-decoration: none
+
 
 form
   align-items: center
@@ -180,7 +200,6 @@ input[type="submit"]
   padding: .25em 1em
 
 h2
-  +right-side
   font-size: 0
   text-align: center
 
@@ -188,7 +207,6 @@ h2
     content: url('img/cup.png')
 
 table
-  +right-side
   margin-bottom: 3em
   margin-top: 3em
   padding: 0 7.5%
