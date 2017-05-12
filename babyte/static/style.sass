@@ -1,62 +1,51 @@
 @import url('https://fonts.googleapis.com/css?family=Leckerli+One|Lora:400i')
+
 @import mixins
-
-
-// Blue #0A7CBA
-$primary: hsl(201, 90, 38)
-// #3b96c8
-$primary-hue-2: adjust-color($primary, $saturation: -34%, $lightness: 13%)
-// #0D67A9
-$primary-hue-3: adjust-color($primary, $lightness: -10%)
-
-// Blue
-$secondary: #1C3740
-$secondary-hue-2: adjust-color($secondary, $saturation: -34%, $lightness: 13%)
-$secondary-hue-3: adjust-color($secondary, $lightness: -10%)
+@import variables
 
 
 body
   box-sizing: border-box
   color: $secondary
   display: flex
-  flex-flow: wrap
+  flex-direction: column
   font-family: 'Lora', serif
   height: 100vh
   margin: 0
-  padding: 10px
+  position: relative
 
-header
-  width: 100%
+header, table
+  margin-left: auto
+  width: calc(50% - 20px)
 
-  h1
-    display: none
+h1
+  display: none
 
-#new-game
+form
+  align-items: center
   background: linear-gradient(-6deg, $secondary 0%, $secondary 49.75%, white 49.9%, white 50.1%, $primary 50.25%, $primary 100%)
+  box-sizing: border-box
   color: #fff
   display: flex
   flex-direction: column
-  height: 100%
+  height: calc(100% - 20px)
   justify-content: space-around
-  // order: -1
-  position: relative
-  width: 50%
-
-  &::before, &::after
-    content: ''
-    flex: 1
+  left: 10px
+  padding: 2.5% 7.5%
+  position: fixed
+  top: 10px
+  width: calc(50% - 10px)
 
   h2
     font-family: 'Leckerli One', cursive
-    font-size: 2em
+    font-size: 2.5em
     font-weight: normal
     line-height: 1em
-    margin: 0 auto
+    margin: 0
     position: relative
     text-align: center
     transform: rotate(-12.5deg)
     width: min-content
-    z-index: 9
 
     &::before
       background: $primary-hue-3
@@ -70,9 +59,6 @@ header
       position: absolute
       width: 3em
       z-index: -1
-
-form
-  flex: 1
 
   &::after
     align-items: center
@@ -92,10 +78,8 @@ form
     width: 3.5rem
 
 fieldset
+  align-self: stretch
   border-style: hidden
-  flex: 1
-  margin: 0
-  padding: 2em 4em
 
   legend
     background: inherit
@@ -129,11 +113,13 @@ label
     color: inherit
     font-family: inherit
 
+  &:first-of-type
+    margin-bottom: 2rem
+
   &:not(:last-child)
     display: block
     font-size: 0
     line-height: 2rem
-    margin-bottom: 2rem
     width: calc(100% - 8rem)
 
     select
@@ -164,7 +150,7 @@ label
     float: right
     font-size: 0
     height: 7rem
-    margin-top: -9rem
+    margin-top: -7rem
     width: 7rem
 
     & input
@@ -189,24 +175,43 @@ input[type="submit"]
   color: $primary
   display: block
   font-family: 'Leckerli One', cursive
-  font-size: 1.5em
-  margin: 0 auto
+  font-size: 2em
+  margin: .25em 0
   padding: .25em 1em
 
-#ranking
-  margin: auto
-  // overflow-y: scroll
+h2
+  +right-side
+  font-size: 0
+  text-align: center
 
-  h2
-    font-size: 0
-    text-align: center
+  &::before
+    content: url('img/cup.png')
 
-    &::before
-      content: url('img/cup.png')
+table
+  +right-side
+  margin-bottom: 3em
+  margin-top: 3em
+  padding: 0 7.5%
+
+tbody
+  counter-reset: ranking
 
   tr
-    display: block
-    padding: 1rem
+    align-items: center
+    display: flex
+    justify-content: flex-end
+    white-space: nowrap
+
+    &::before
+      align-items: center
+      content: counter(ranking)
+      counter-increment: ranking
+      display: flex
+      font-family: 'Leckerli One', cursive
+      justify-content: center
+      margin: auto
+      text-align: center
+      width: 4rem
 
     &:nth-child(1)
       +medal(gold, 1.5em)
@@ -220,5 +225,10 @@ input[type="submit"]
     &:nth-child(2n)
       background: rgba($primary, .1)
 
-    td:nth-child(2)
-      white-space: nowrap
+    td:first-child
+      box-sizing: border-box
+      padding: 1em
+      width: 15rem
+
+    td:last-child
+      width: 5rem

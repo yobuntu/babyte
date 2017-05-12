@@ -15,43 +15,38 @@
         </ul>
       </nav>
     </header>
-    <section id="new-game">
+    <form action="{{ url_for('add_match') }}" method=post>
       <h2>Nouvelle partie</h2>
-      <form action="{{ url_for('add_match') }}" method=post>
-      {% for team_number in (1,2) %}
-        <fieldset>
-          <legend>Team {{ team_number }}</legend>
-          {% for player_number in (1,2) %}
-          <label>
-            Joueur {{ player_number }}
-            <select name="team{{ team_number }}_player{{ player_number }}">
-              <option value=""></option>
-              {% for user in session.users | sort %}
-                <option value="{{ user }}">{{ user }}</option>
-              {% endfor %}
-            </select>
-          </label>
-          {% endfor %}
-          <label>
-            Score
-            <input name="score_team{{ team_number }}">
-          </label>
-        </fieldset>
-      {% endfor %}
-        <input type="submit">
-      </form>
-    </section>
-    <section id="ranking">
-      <h2>Classement</h2>
-      <table>
-        {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
-          <tr>
-            <td>{{ loop.index }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.ranking }}</td>
-          </tr>
+    {% for team_number in (1,2) %}
+      <fieldset>
+        <legend>Team {{ team_number }}</legend>
+        {% for player_number in (1,2) %}
+        <label>
+          Joueur {{ player_number }}
+          <select name="team{{ team_number }}_player{{ player_number }}">
+            <option value=""></option>
+            {% for user in session.users | sort %}
+              <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+          </select>
+        </label>
         {% endfor %}
-      </table>
-    </section>
+        <label>
+          Score
+          <input name="score_team{{ team_number }}">
+        </label>
+      </fieldset>
+    {% endfor %}
+      <input type="submit">
+    </form>
+    <h2>Classement</h2>
+    <table>
+      {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.ranking }}</td>
+        </tr>
+      {% endfor %}
+    </table>
   </body>
 </html>

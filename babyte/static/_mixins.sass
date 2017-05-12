@@ -1,10 +1,16 @@
 =medal($color, $font-size)
-  font-family: 'Leckerli One', cursive
   font-size: $font-size
 
-  td:first-child
+  &::before
     background: $color
     border-radius: 100%
-    text-align: center
     height: 2em
     width: 2em
+
+  td:first-child
+    font-family: 'Leckerli One', cursive
+
+
+=right-side
+  margin-left: auto
+  width: 50%

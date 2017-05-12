@@ -3,41 +3,44 @@ body {
   box-sizing: border-box;
   color: #1C3740;
   display: flex;
-  flex-flow: wrap;
+  flex-direction: column;
   font-family: 'Lora', serif;
   height: 100vh;
   margin: 0;
-  padding: 10px; }
+  position: relative; }
 
-header {
-  width: 100%; }
-  header h1 {
-    display: none; }
+header, table {
+  margin-left: auto;
+  width: calc(50% - 20px); }
 
-#new-game {
+h1 {
+  display: none; }
+
+form {
+  align-items: center;
   background: linear-gradient(-6deg, #1C3740 0%, #1C3740 49.75%, white 49.9%, white 50.1%, #0a7bb8 50.25%, #0a7bb8 100%);
+  box-sizing: border-box;
   color: #fff;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: calc(100% - 20px);
   justify-content: space-around;
-  position: relative;
-  width: 50%; }
-  #new-game::before, #new-game::after {
-    content: '';
-    flex: 1; }
-  #new-game h2 {
+  left: 10px;
+  padding: 2.5% 7.5%;
+  position: fixed;
+  top: 10px;
+  width: calc(50% - 10px); }
+  form h2 {
     font-family: 'Leckerli One', cursive;
-    font-size: 2em;
+    font-size: 2.5em;
     font-weight: normal;
     line-height: 1em;
-    margin: 0 auto;
+    margin: 0;
     position: relative;
     text-align: center;
     transform: rotate(-12.5deg);
-    width: min-content;
-    z-index: 9; }
-    #new-game h2::before {
+    width: min-content; }
+    form h2::before {
       background: #075b88;
       border-radius: 100%;
       content: '';
@@ -49,9 +52,6 @@ header {
       position: absolute;
       width: 3em;
       z-index: -1; }
-
-form {
-  flex: 1; }
   form::after {
     align-items: center;
     background: #fff;
@@ -70,10 +70,8 @@ form {
     width: 3.5rem; }
 
 fieldset {
-  border-style: hidden;
-  flex: 1;
-  margin: 0;
-  padding: 2em 4em; }
+  align-self: stretch;
+  border-style: hidden; }
   fieldset legend {
     background: inherit;
     color: white;
@@ -100,11 +98,13 @@ label select, label input {
   color: inherit;
   font-family: inherit; }
 
+label:first-of-type {
+  margin-bottom: 2rem; }
+
 label:not(:last-child) {
   display: block;
   font-size: 0;
   line-height: 2rem;
-  margin-bottom: 2rem;
   width: calc(100% - 8rem); }
   label:not(:last-child) select {
     border-style: hidden;
@@ -131,7 +131,7 @@ label:last-of-type {
   float: right;
   font-size: 0;
   height: 7rem;
-  margin-top: -9rem;
+  margin-top: -7rem;
   width: 7rem; }
   label:last-of-type input {
     box-shadow: 0 0 0 2pt inherit;
@@ -154,50 +154,76 @@ input[type="submit"] {
   color: #0a7bb8;
   display: block;
   font-family: 'Leckerli One', cursive;
-  font-size: 1.5em;
-  margin: 0 auto;
+  font-size: 2em;
+  margin: .25em 0;
   padding: .25em 1em; }
 
-#ranking {
-  margin: auto; }
-  #ranking h2 {
-    font-size: 0;
-    text-align: center; }
-    #ranking h2::before {
-      content: url("img/cup.png"); }
-  #ranking tr {
-    display: block;
-    padding: 1rem; }
-    #ranking tr:nth-child(1) {
+h2 {
+  margin-left: auto;
+  width: 50%;
+  font-size: 0;
+  text-align: center; }
+  h2::before {
+    content: url("img/cup.png"); }
+
+table {
+  margin-left: auto;
+  width: 50%;
+  margin-bottom: 3em;
+  margin-top: 3em;
+  padding: 0 7.5%; }
+
+tbody {
+  counter-reset: ranking; }
+  tbody tr {
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
+    white-space: nowrap; }
+    tbody tr::before {
+      align-items: center;
+      content: counter(ranking);
+      counter-increment: ranking;
+      display: flex;
       font-family: 'Leckerli One', cursive;
+      justify-content: center;
+      margin: auto;
+      text-align: center;
+      width: 4rem; }
+    tbody tr:nth-child(1) {
       font-size: 1.5em; }
-      #ranking tr:nth-child(1) td:first-child {
+      tbody tr:nth-child(1)::before {
         background: gold;
         border-radius: 100%;
-        text-align: center;
         height: 2em;
         width: 2em; }
-    #ranking tr:nth-child(2) {
-      font-family: 'Leckerli One', cursive;
+      tbody tr:nth-child(1) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    tbody tr:nth-child(2) {
       font-size: 1.2em; }
-      #ranking tr:nth-child(2) td:first-child {
+      tbody tr:nth-child(2)::before {
         background: silver;
         border-radius: 100%;
-        text-align: center;
         height: 2em;
         width: 2em; }
-    #ranking tr:nth-child(3) {
-      font-family: 'Leckerli One', cursive;
+      tbody tr:nth-child(2) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    tbody tr:nth-child(3) {
       font-size: 1.1em; }
-      #ranking tr:nth-child(3) td:first-child {
+      tbody tr:nth-child(3)::before {
         background: #cd7f32;
         border-radius: 100%;
-        text-align: center;
         height: 2em;
         width: 2em; }
-    #ranking tr:nth-child(2n) {
+      tbody tr:nth-child(3) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    tbody tr:nth-child(2n) {
       background: rgba(10, 123, 184, 0.1); }
-    #ranking tr td:nth-child(2) {
-      white-space: nowrap; }
+    tbody tr td:first-child {
+      box-sizing: border-box;
+      padding: 1em;
+      width: 15rem; }
+    tbody tr td:last-child {
+      width: 5rem; }
 
 /*# sourceMappingURL=style.sass.css.map */
