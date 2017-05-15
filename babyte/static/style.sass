@@ -8,10 +8,7 @@ body
   color: $secondary
   font-family: 'Lora', serif
   margin: 0
-
-  header, table, & > h2
-    margin-left: auto
-    width: 50%
+  padding-left: 50%
 
 
 header
@@ -97,82 +94,90 @@ form
       background-color: $primary-hue-2
 
     & + fieldset
-      legend::before, select, input
+      select, input
         background-color: $secondary-hue-2
+
+      legend::before
+        background-color: $secondary-hue-3
 
       label:not(:last-of-type) select
         border-top: 4px solid $secondary-hue-3
 
-label
-  select, input
-    color: inherit
-    font-family: inherit
+  label
+    select, input
+      color: inherit
+      font-family: inherit
 
-  &:first-of-type
-    margin-bottom: 2rem
+    &:first-of-type
+      margin-bottom: 2rem
 
-  &:not(:last-child)
-    display: block
-    font-size: 0
-    line-height: 2rem
-    width: calc(100% - 8rem)
-
-    select
-      border-style: hidden
-      border-bottom-left-radius: .25em
-      border-bottom-right-radius: .25em
-      border-top: 4px solid $primary-hue-3
+    &:not(:last-child)
       display: block
-      font-size: 14pt
-      height: 3rem
-      margin-top: -3rem
-      padding: 0 .75em
-      transition: background .25s, color .25s
-      width: 100%
+      font-size: 0
+      line-height: 2rem
+      width: calc(100% - 8rem)
 
-      &:blank
-        background: red
+      select
+        border-style: hidden
+        border-bottom-left-radius: .25em
+        border-bottom-right-radius: .25em
+        border-top: 4px solid $primary-hue-3
+        font-size: 14pt
+        height: 3rem
+        margin-top: -3rem
+        padding: 0 .75em
+        transition: background .25s, color .25s
+        width: 100%
 
-      &:focus
-        background: #fff
-        color: $secondary
-        outline: none
+        &:blank
+          background: red
 
-      option
-        line-height: 3
+        &:focus
+          background: #fff
+          color: $secondary
+          outline: none
 
-  &:last-of-type
-    float: right
-    font-size: 0
-    height: 7rem
-    margin-top: -7rem
-    width: 7rem
+        option
+          line-height: 3
 
-    & input
-      box-shadow: 0 0 0 2pt inherit
-      border-style: hidden
-      border-radius: 100%
-      font-size: 3.5rem
-      font-weight: bold
-      line-height: 7rem
-      height: 100%
-      text-align: center
-      transition: box-shadow .25s
-      width: 100%
+    &:last-of-type
+      float: right
+      font-size: 0
+      height: 7rem
+      margin-top: -7rem
+      width: 7rem
 
-      &:focus
-        box-shadow: 0 0 0 2pt #fff
-        outline: none
+      & input
+        border-style: hidden
+        border-radius: 100%
+        font-size: 3.5rem
+        font-weight: bold
+        height: 100%
+        text-align: center
+        transition: box-shadow .25s
+        width: 100%
 
-input[type="submit"]
-  border-style: hidden
-  border-bottom: 4px solid $primary
-  color: $primary
-  display: block
-  font-family: 'Leckerli One', cursive
-  font-size: 2em
-  margin: .25em 0
-  padding: .25em 1em
+        &:focus
+          box-shadow: 0 0 0 2pt #fff
+          outline: none
+
+  input[type="submit"]
+    border-style: hidden
+    border-bottom: 4px solid $primary
+    color: $primary
+    cursor: pointer
+    display: block
+    font-family: 'Leckerli One', cursive
+    font-size: 2em
+    margin: .25em 0
+    padding: .25em 1em
+    transition: background .25s, border .25s, color .25s
+
+    &:hover
+      background: $primary
+      border-bottom: 4px solid $primary-hue-3
+      color: #fff
+
 
 h2
   font-size: 0
@@ -182,46 +187,35 @@ h2
     content: url('img/cup.png')
 
 table
-  margin-bottom: 3em
-  margin-top: 3em
-  padding: 0 7.5%
+  border-collapse: collapse
+  margin: 3em auto
+  min-width: 70%
 
-tbody
-  counter-reset: ranking
+  tbody
+    counter-reset: ranking
 
+#ranking
   tr
-    align-items: center
-    display: flex
-    justify-content: flex-end
-    white-space: nowrap
-
     &::before
-      align-items: center
+      background-clip: content-box
+      box-sizing: border-box
       content: counter(ranking)
       counter-increment: ranking
-      display: flex
+      display: block
       font-family: 'Leckerli One', cursive
-      justify-content: center
-      margin: auto
+      line-height: 4rem
+      margin: .5em auto
       text-align: center
       width: 4rem
 
     &:nth-child(1)
-      +medal(gold, 1.5em)
+      +medal(gold, 1.5em, 0.25em)
 
     &:nth-child(2)
-      +medal(silver, 1.2em)
+      +medal(silver, 1.2em, 0.5em)
 
     &:nth-child(3)
-      +medal(#cd7f32, 1.1em)
+      +medal(#cd7f32, 1.1em, 0.75em)
 
     &:nth-child(2n)
       background: rgba($primary, .1)
-
-    td:first-child
-      box-sizing: border-box
-      padding: 1em
-      width: 15rem
-
-    td:last-child
-      width: 5rem

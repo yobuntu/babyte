@@ -2,10 +2,8 @@
 body {
   color: #1C3740;
   font-family: 'Lora', serif;
-  margin: 0; }
-  body header, body table, body > h2 {
-    margin-left: auto;
-    width: 50%; }
+  margin: 0;
+  padding-left: 50%; }
 
 header h1 {
   display: none; }
@@ -98,74 +96,74 @@ form {
         margin-right: .5em; }
     form fieldset select, form fieldset input {
       background-color: #3c97c8; }
-    form fieldset + fieldset legend::before, form fieldset + fieldset select, form fieldset + fieldset input {
+    form fieldset + fieldset select, form fieldset + fieldset input {
       background-color: #4b5153; }
+    form fieldset + fieldset legend::before {
+      background-color: #0c191d; }
     form fieldset + fieldset label:not(:last-of-type) select {
       border-top: 4px solid #0c191d; }
-
-label select, label input {
-  color: inherit;
-  font-family: inherit; }
-
-label:first-of-type {
-  margin-bottom: 2rem; }
-
-label:not(:last-child) {
-  display: block;
-  font-size: 0;
-  line-height: 2rem;
-  width: calc(100% - 8rem); }
-  label:not(:last-child) select {
-    border-style: hidden;
-    border-bottom-left-radius: .25em;
-    border-bottom-right-radius: .25em;
-    border-top: 4px solid #075b88;
+  form label select, form label input {
+    color: inherit;
+    font-family: inherit; }
+  form label:first-of-type {
+    margin-bottom: 2rem; }
+  form label:not(:last-child) {
     display: block;
-    font-size: 14pt;
-    height: 3rem;
-    margin-top: -3rem;
-    padding: 0 .75em;
-    transition: background .25s, color .25s;
-    width: 100%; }
-    label:not(:last-child) select:blank {
-      background: red; }
-    label:not(:last-child) select:focus {
-      background: #fff;
-      color: #1C3740;
-      outline: none; }
-    label:not(:last-child) select option {
-      line-height: 3; }
-
-label:last-of-type {
-  float: right;
-  font-size: 0;
-  height: 7rem;
-  margin-top: -7rem;
-  width: 7rem; }
-  label:last-of-type input {
-    box-shadow: 0 0 0 2pt inherit;
+    font-size: 0;
+    line-height: 2rem;
+    width: calc(100% - 8rem); }
+    form label:not(:last-child) select {
+      border-style: hidden;
+      border-bottom-left-radius: .25em;
+      border-bottom-right-radius: .25em;
+      border-top: 4px solid #075b88;
+      font-size: 14pt;
+      height: 3rem;
+      margin-top: -3rem;
+      padding: 0 .75em;
+      transition: background .25s, color .25s;
+      width: 100%; }
+      form label:not(:last-child) select:blank {
+        background: red; }
+      form label:not(:last-child) select:focus {
+        background: #fff;
+        color: #1C3740;
+        outline: none; }
+      form label:not(:last-child) select option {
+        line-height: 3; }
+  form label:last-of-type {
+    float: right;
+    font-size: 0;
+    height: 7rem;
+    margin-top: -7rem;
+    width: 7rem; }
+    form label:last-of-type input {
+      border-style: hidden;
+      border-radius: 100%;
+      font-size: 3.5rem;
+      font-weight: bold;
+      height: 100%;
+      text-align: center;
+      transition: box-shadow .25s;
+      width: 100%; }
+      form label:last-of-type input:focus {
+        box-shadow: 0 0 0 2pt #fff;
+        outline: none; }
+  form input[type="submit"] {
     border-style: hidden;
-    border-radius: 100%;
-    font-size: 3.5rem;
-    font-weight: bold;
-    line-height: 7rem;
-    height: 100%;
-    text-align: center;
-    transition: box-shadow .25s;
-    width: 100%; }
-    label:last-of-type input:focus {
-      box-shadow: 0 0 0 2pt #fff;
-      outline: none; }
-
-input[type="submit"] {
-  border-style: hidden;
-  border-bottom: 4px solid #0a7bb8;
-  color: #0a7bb8;
-  display: block;
-  font-family: 'Leckerli One', cursive;
-  font-size: 2em;
-  margin: .25em 0;
-  padding: .25em 1em; }
+    border-bottom: 4px solid #0a7bb8;
+    color: #0a7bb8;
+    cursor: pointer;
+    display: block;
+    font-family: 'Leckerli One', cursive;
+    font-size: 2em;
+    margin: .25em 0;
+    padding: .25em 1em;
+    transition: background .25s, border .25s, color .25s; }
+    form input[type="submit"]:hover {
+      background: #0a7bb8;
+      border-bottom: 4px solid #075b88;
+      color: #fff; }
 
 h2 {
   font-size: 0;
@@ -174,61 +172,55 @@ h2 {
     content: url("img/cup.png"); }
 
 table {
-  margin-bottom: 3em;
-  margin-top: 3em;
-  padding: 0 7.5%; }
+  border-collapse: collapse;
+  margin: 3em auto;
+  min-width: 70%; }
+  table tbody {
+    counter-reset: ranking; }
 
-tbody {
-  counter-reset: ranking; }
-  tbody tr {
-    align-items: center;
-    display: flex;
-    justify-content: flex-end;
-    white-space: nowrap; }
-    tbody tr::before {
-      align-items: center;
-      content: counter(ranking);
-      counter-increment: ranking;
-      display: flex;
-      font-family: 'Leckerli One', cursive;
-      justify-content: center;
-      margin: auto;
-      text-align: center;
-      width: 4rem; }
-    tbody tr:nth-child(1) {
-      font-size: 1.5em; }
-      tbody tr:nth-child(1)::before {
-        background: gold;
-        border-radius: 100%;
-        height: 2em;
-        width: 2em; }
-      tbody tr:nth-child(1) td:first-child {
-        font-family: 'Leckerli One', cursive; }
-    tbody tr:nth-child(2) {
-      font-size: 1.2em; }
-      tbody tr:nth-child(2)::before {
-        background: silver;
-        border-radius: 100%;
-        height: 2em;
-        width: 2em; }
-      tbody tr:nth-child(2) td:first-child {
-        font-family: 'Leckerli One', cursive; }
-    tbody tr:nth-child(3) {
-      font-size: 1.1em; }
-      tbody tr:nth-child(3)::before {
-        background: #cd7f32;
-        border-radius: 100%;
-        height: 2em;
-        width: 2em; }
-      tbody tr:nth-child(3) td:first-child {
-        font-family: 'Leckerli One', cursive; }
-    tbody tr:nth-child(2n) {
-      background: rgba(10, 123, 184, 0.1); }
-    tbody tr td:first-child {
-      box-sizing: border-box;
-      padding: 1em;
-      width: 15rem; }
-    tbody tr td:last-child {
-      width: 5rem; }
+#ranking tr::before {
+  background-clip: content-box;
+  box-sizing: border-box;
+  content: counter(ranking);
+  counter-increment: ranking;
+  display: block;
+  font-family: 'Leckerli One', cursive;
+  line-height: 4rem;
+  margin: .5em auto;
+  text-align: center;
+  width: 4rem; }
+
+#ranking tr:nth-child(1) {
+  font-size: 1.5em; }
+  #ranking tr:nth-child(1)::before {
+    background-color: gold;
+    border-radius: 100%;
+    line-height: calc(4rem - 0.25em * 2);
+    padding: 0.25em; }
+  #ranking tr:nth-child(1) td:first-child {
+    font-family: 'Leckerli One', cursive; }
+
+#ranking tr:nth-child(2) {
+  font-size: 1.2em; }
+  #ranking tr:nth-child(2)::before {
+    background-color: silver;
+    border-radius: 100%;
+    line-height: calc(4rem - 0.5em * 2);
+    padding: 0.5em; }
+  #ranking tr:nth-child(2) td:first-child {
+    font-family: 'Leckerli One', cursive; }
+
+#ranking tr:nth-child(3) {
+  font-size: 1.1em; }
+  #ranking tr:nth-child(3)::before {
+    background-color: #cd7f32;
+    border-radius: 100%;
+    line-height: calc(4rem - 0.75em * 2);
+    padding: 0.75em; }
+  #ranking tr:nth-child(3) td:first-child {
+    font-family: 'Leckerli One', cursive; }
+
+#ranking tr:nth-child(2n) {
+  background: rgba(10, 123, 184, 0.1); }
 
 /*# sourceMappingURL=style.sass.css.map */

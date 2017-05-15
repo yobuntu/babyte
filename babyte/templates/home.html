@@ -40,7 +40,7 @@
       <input type="submit">
     </form>
     <h2>Classement</h2>
-    <table>
+    <table id="ranking">
       {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
         <tr>
           <td>{{ user.name }}</td>

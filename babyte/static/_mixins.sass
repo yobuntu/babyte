@@ -1,11 +1,11 @@
-=medal($color, $font-size)
+=medal($color, $font-size, $padding)
   font-size: $font-size
 
   &::before
-    background: $color
+    background-color: $color
     border-radius: 100%
-    height: 2em
-    width: 2em
+    line-height: calc(4rem - #{$padding} * 2)
+    padding: $padding
 
   td:first-child
     font-family: 'Leckerli One', cursive
