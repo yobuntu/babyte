@@ -5,7 +5,7 @@
     <title>B.A.B.Y.T.E</title>
     <link rel="stylesheet" href="static/style.sass.css">
   </head>
-  <body>
+  <body id="list">
     <header>
       <h1>Bienvenue sur Babyte</h1>
       <nav>
@@ -15,7 +15,32 @@
         </ul>
       </nav>
     </header>
-    <h1>Liste des Matches Babyte-Kozea</h1>
+    <form action="{{ url_for('add_match') }}" method=post>
+      <h2>Nouvelle partie</h2>
+    {% for team_number in (1,2) %}
+      <fieldset>
+        <legend>Team {{ team_number }}</legend>
+        {% for player_number in (1,2) %}
+        <label>
+          Joueur {{ player_number }}
+          <select name="team{{ team_number }}_player{{ player_number }}">
+            <option value=""></option>
+            {% for user in session.users | sort %}
+              <option value="{{ user }}">{{ user }}</option>
+            {% endfor %}
+          </select>
+        </label>
+        {% endfor %}
+        <label>
+          Score
+          <input name="score_team{{ team_number }}">
+        </label>
+      </fieldset>
+    {% endfor %}
+      <input type="submit">
+    </form>
+    <h2>Liste des Matches Babyte-Kozea</h1>
+    <section>
     {% for match in matches %}
       <dl>
         <dt>
@@ -28,5 +53,6 @@
         <dd>{{ match.score_team2 }}</dd>
       </dl>
     {% endfor %}
+    </section>
   </body>
 </html>

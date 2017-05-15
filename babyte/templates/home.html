@@ -5,7 +5,7 @@
     <title>B.A.B.Y.T.E</title>
     <link rel="stylesheet" href="static/style.sass.css">
   </head>
-  <body>
+  <body id="home">
     <header>
       <h1>Bienvenue sur Babyte</h1>
       <nav>
@@ -40,7 +40,7 @@
       <input type="submit">
     </form>
     <h2>Classement</h2>
-    <table id="ranking">
+    <table>
       {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
         <tr>
           <td>{{ user.name }}</td>

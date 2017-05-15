@@ -28,6 +28,12 @@ header ul {
     font-size: 1.5em;
     text-decoration: none; }
 
+#home > h2 {
+  font-size: 0;
+  text-align: center; }
+  #home > h2::before {
+    content: url("img/cup.png"); }
+
 form {
   align-items: center;
   background: linear-gradient(-6deg, #1C3740 0%, #1C3740 49.75%, white 49.9%, white 50.1%, #0a7bb8 50.25%, #0a7bb8 100%);
@@ -61,7 +67,9 @@ form {
     line-height: 1em;
     margin: 0;
     order: -2;
+    text-align: center;
     transform: rotate(-12.5deg);
+    transition: transform .75s;
     width: min-content; }
     form h2::before {
       left: 50%;
@@ -75,6 +83,8 @@ form {
       height: 3em;
       width: 3em;
       z-index: -1; }
+    form h2:hover {
+      transform: rotate(347.5deg); }
   form fieldset {
     align-self: stretch;
     border-style: hidden;
@@ -165,62 +175,72 @@ form {
       border-bottom: 4px solid #075b88;
       color: #fff; }
 
-h2 {
-  font-size: 0;
-  text-align: center; }
-  h2::before {
-    content: url("img/cup.png"); }
-
 table {
   border-collapse: collapse;
   margin: 3em auto;
   min-width: 70%; }
   table tbody {
     counter-reset: ranking; }
+    table tbody tr td {
+      padding: 1em; }
+    table tbody tr:nth-child(2n) {
+      background: rgba(10, 123, 184, 0.1); }
+    table tbody tr::before {
+      background-clip: content-box;
+      box-sizing: border-box;
+      content: counter(ranking);
+      counter-increment: ranking;
+      display: block;
+      font-family: 'Leckerli One', cursive;
+      line-height: 3rem;
+      margin: 1em auto;
+      text-align: center;
+      width: 3rem; }
+    table tbody tr:nth-child(1) {
+      font-size: 1.5em; }
+      table tbody tr:nth-child(1)::before {
+        background-color: gold;
+        border-radius: 100%;
+        line-height: calc(3rem - 0em * 2);
+        padding: 0em; }
+      table tbody tr:nth-child(1) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    table tbody tr:nth-child(2) {
+      font-size: 1.2em; }
+      table tbody tr:nth-child(2)::before {
+        background-color: silver;
+        border-radius: 100%;
+        line-height: calc(3rem - 0.25em * 2);
+        padding: 0.25em; }
+      table tbody tr:nth-child(2) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    table tbody tr:nth-child(3) {
+      font-size: 1.1em; }
+      table tbody tr:nth-child(3)::before {
+        background-color: #cd7f32;
+        border-radius: 100%;
+        line-height: calc(3rem - 0.5em * 2);
+        padding: 0.5em; }
+      table tbody tr:nth-child(3) td:first-child {
+        font-family: 'Leckerli One', cursive; }
+    table tbody tr td:last-child {
+      font-size: 1rem; }
 
-#ranking tr::before {
-  background-clip: content-box;
-  box-sizing: border-box;
-  content: counter(ranking);
-  counter-increment: ranking;
-  display: block;
-  font-family: 'Leckerli One', cursive;
-  line-height: 4rem;
-  margin: .5em auto;
-  text-align: center;
-  width: 4rem; }
+#list h2 {
+  display: none; }
 
-#ranking tr:nth-child(1) {
-  font-size: 1.5em; }
-  #ranking tr:nth-child(1)::before {
-    background-color: gold;
-    border-radius: 100%;
-    line-height: calc(4rem - 0.25em * 2);
-    padding: 0.25em; }
-  #ranking tr:nth-child(1) td:first-child {
-    font-family: 'Leckerli One', cursive; }
-
-#ranking tr:nth-child(2) {
-  font-size: 1.2em; }
-  #ranking tr:nth-child(2)::before {
-    background-color: silver;
-    border-radius: 100%;
-    line-height: calc(4rem - 0.5em * 2);
-    padding: 0.5em; }
-  #ranking tr:nth-child(2) td:first-child {
-    font-family: 'Leckerli One', cursive; }
-
-#ranking tr:nth-child(3) {
-  font-size: 1.1em; }
-  #ranking tr:nth-child(3)::before {
-    background-color: #cd7f32;
-    border-radius: 100%;
-    line-height: calc(4rem - 0.75em * 2);
-    padding: 0.75em; }
-  #ranking tr:nth-child(3) td:first-child {
-    font-family: 'Leckerli One', cursive; }
-
-#ranking tr:nth-child(2n) {
-  background: rgba(10, 123, 184, 0.1); }
+section {
+  padding: 0 15%; }
+  section dl {
+    line-height: 2em;
+    margin: 0;
+    padding: 1em 2em; }
+    section dl:nth-child(2n) {
+      background: rgba(10, 123, 184, 0.1); }
+    section dl dt {
+      clear: left; }
+    section dl dd {
+      float: right;
+      margin-top: -2em; }
 
 /*# sourceMappingURL=style.sass.css.map */

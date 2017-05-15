@@ -34,6 +34,13 @@ header
         text-decoration: none
 
 
+#home > h2
+  font-size: 0
+  text-align: center
+
+  &::before
+    content: url('img/cup.png')
+
 form
   align-items: center
   background: linear-gradient(-6deg, $secondary 0%, $secondary 49.75%, white 49.9%, white 50.1%, $primary 50.25%, $primary 100%)
@@ -64,13 +71,18 @@ form
     line-height: 1em
     margin: 0
     order: -2
+    text-align: center
     transform: rotate(-12.5deg)
+    transition: transform .75s
     width: min-content
 
     &::before
       +center-absolute
       +content-circle($primary-hue-3, block, 3em)
       z-index: -1
+
+    &:hover
+      transform: rotate(347.5deg)
 
   fieldset
     align-self: stretch
@@ -178,14 +190,6 @@ form
       border-bottom: 4px solid $primary-hue-3
       color: #fff
 
-
-h2
-  font-size: 0
-  text-align: center
-
-  &::before
-    content: url('img/cup.png')
-
 table
   border-collapse: collapse
   margin: 3em auto
@@ -194,28 +198,55 @@ table
   tbody
     counter-reset: ranking
 
-#ranking
-  tr
-    &::before
-      background-clip: content-box
-      box-sizing: border-box
-      content: counter(ranking)
-      counter-increment: ranking
-      display: block
-      font-family: 'Leckerli One', cursive
-      line-height: 4rem
-      margin: .5em auto
-      text-align: center
-      width: 4rem
+    tr
+      td
+        padding: 1em
 
-    &:nth-child(1)
-      +medal(gold, 1.5em, 0.25em)
+      &:nth-child(2n)
+        background: rgba($primary, .1)
 
-    &:nth-child(2)
-      +medal(silver, 1.2em, 0.5em)
+      &::before
+        background-clip: content-box
+        box-sizing: border-box
+        content: counter(ranking)
+        counter-increment: ranking
+        display: block
+        font-family: 'Leckerli One', cursive
+        line-height: 3rem
+        margin: 1em auto
+        text-align: center
+        width: 3rem
 
-    &:nth-child(3)
-      +medal(#cd7f32, 1.1em, 0.75em)
+      &:nth-child(1)
+        +medal(gold, 1.5em, 0em)
+
+      &:nth-child(2)
+        +medal(silver, 1.2em, 0.25em)
+
+      &:nth-child(3)
+        +medal(#cd7f32, 1.1em, 0.5em)
+
+      td:last-child
+        font-size: 1rem
+
+
+#list h2
+  display: none
+
+section
+  padding: 0 15%
+
+  dl
+    line-height: 2em
+    margin: 0
+    padding: 1em 2em
 
     &:nth-child(2n)
       background: rgba($primary, .1)
+
+    dt
+      clear: left
+
+    dd
+      float: right
+      margin-top: -2em
