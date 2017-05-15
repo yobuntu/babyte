@@ -16,15 +16,17 @@
       </nav>
     </header>
     <h1>Liste des Matches Babyte-Kozea</h1>
-    <table>
-      {% for match in matches %}
-        <tr>
-          <td>{{ match.team1_player1 }}- {{ match.team1_player2 }}</td>
-          <td>{{ match.score_team1 }}</td>
-          <td>{{ match.score_team2 }}</td>
-          <td>{{ match.team2_player1 }}- {{ match.team2_player2 }}</td>
-        </tr>
-      {% endfor %}
-    </table>
+    {% for match in matches %}
+      <dl>
+        <dt>
+          <span>{{ match.team1_player1 }}</span>{% if match.team1_player2 %}<span>{{ match.team1_player2 }}</span>{% endif %}
+        </dt>
+        <dd>{{ match.score_team1 }}</dd>
+        <dt>
+          <span>{{ match.team2_player1 }}</span>{% if match.team1_player2 %}<span>{{ match.team2_player2 }}</span>{% endif %}
+        </dt>
+        <dd>{{ match.score_team2 }}</dd>
+      </dl>
+    {% endfor %}
   </body>
 </html>
