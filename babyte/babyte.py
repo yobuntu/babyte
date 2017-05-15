@@ -39,10 +39,10 @@ class User:
         self.number_of_match = 0
 
 FLOW = OAuth2WebServerFlow(
-    client_id='920868201743-f5p9lof7deojohp5n7t4rail5q4t80g8.apps.googleusercontent.com',
-    client_secret='lZf7gI5QYYWbaDOvUG_ARH6Q',
-    redirect_uri='http://localhost:5000/oauth2callback',
-    scope=['https://www.googleapis.com/auth/contacts.readonly'],
+    client_id=app.config['OAUTH_CLIENT_ID'],
+    client_secret=app.config['OAUTH_SECRET_KEY'],
+    redirect_uri=app.config['OAUTH_REDIRECT'],
+    scope=app.config['OAUTH_SCOPE'],
     user_agent='babyte/1.0')
 
 
@@ -75,7 +75,7 @@ def oauth2callback():
     _, content = http.request(
         "https://people.googleapis.com/v1/people/me")
     data = json.loads(content.decode('utf-8'))
-    if True and data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
+    if data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
         if 'names' in data:
             session['person'] = data['names'][0]['displayName']
         _, users_content = http.request(
