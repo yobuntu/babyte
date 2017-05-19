@@ -15,7 +15,8 @@ setup(
     scripts=['babyte/babyte.py'],
     install_requires=[
         'flask',
-        'oauth2client'
+        'oauth2client',
+        'libsass',
     ],
     tests_require=tests_requirements,
     extras_require={'test': tests_requirements}
