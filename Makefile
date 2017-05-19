@@ -7,6 +7,9 @@ install:
 	test -d $(VENV) || virtualenv $(VENV)
 	$(PIP) install --upgrade --no-cache pip setuptools -e .[test]
 
+install-db:
+	$(VENV)/bin/flask init_db
+
 install-dev:
 	$(PIP) install --upgrade devcore
 
