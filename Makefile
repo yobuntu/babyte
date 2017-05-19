@@ -34,7 +34,7 @@ env:
 	$(RUN)
 
 run:
-	$(VENV)/bin/$(PROJECT_NAME).py
+	env FLASK_DEBUG=1 $(VENV)/bin/flask run
 
 serve: run
 
