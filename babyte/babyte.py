@@ -10,19 +10,16 @@ from flask import (
 from oauth2client.client import OAuth2WebServerFlow
 
 
-app = Flask(__name__)  # create the application instance :)
+app = Flask(__name__)
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'babyte.db'),
-    SECRET_KEY='development key',
-    OAUTH_CLIENT_ID='920868201743-f5p9lof7deojohp5n7t4rail5q4t80g8.apps.googleusercontent.com',
-    OAUTH_SECRET_KEY = 'lZf7gI5QYYWbaDOvUG_ARH6Q',
-    OAUTH_REDIRECT = 'http://localhost:5000/oauth2callback',
-    OAUTH_SCOPE = (
+    SECRET_KEY='secret key',
+    OAUTH_CLIENT_ID='oauth client id',
+    OAUTH_SECRET_KEY='oauth secret key',
+    OAUTH_REDIRECT='http://localhost:5000/oauth2callback',
+    OAUTH_SCOPE=(
         'https://www.googleapis.com/auth/contacts.readonly',
-        'https://www.googleapis.com/auth/plus.login'),
-    USERNAME='admin',
-    PASSWORD='default'
-))
+        'https://www.googleapis.com/auth/plus.login')))
 app.config.from_envvar('BABYTE_SETTINGS', silent=True)
 
 
