@@ -1,16 +1,16 @@
 # all the imports
 import json
 import os
+import sqlite3
 from functools import wraps
 
-from flask import (
-   Flask, request, session, g, redirect, url_for, abort,
-   render_template, flash)
-from oauth2client.client import OAuth2WebServerFlow
 import httplib2
-import sqlite3
+from flask import (Flask, abort, flash, g, redirect, render_template, request,
+                   session, url_for)
+from oauth2client.client import OAuth2WebServerFlow
 
-app = Flask(__name__) #create the application instance :)
+
+app = Flask(__name__)  # create the application instance :)
 app.config.update(dict(
     DATABASE=os.path.join(app.root_path, 'babyte.db'),
     SECRET_KEY='development key',
@@ -38,6 +38,7 @@ class User:
         self.ranking = 1000
         self.number_of_match = 0
 
+
 FLOW = OAuth2WebServerFlow(
     client_id=app.config['OAUTH_CLIENT_ID'],
     client_secret=app.config['OAUTH_SECRET_KEY'],
@@ -52,11 +53,14 @@ def connect_db():
     rv.row_factory = sqlite3.Row
     return rv
 
+
 def get_db():
-    """Opens a new database connection if there is none yet for the current application context."""
+    """Opens a new database connection
+    if there is none yet for the current application context."""
     if not hasattr(g, 'sqlite_db'):
         g.sqlite_db = connect_db()
         return g.sqlite_db
+
 
 def auth(function):
     """Wrapper checking if the user is logged in."""
@@ -66,6 +70,7 @@ def auth(function):
             return function(*args, **kwargs)
         return redirect(FLOW.step1_get_authorize_url())
     return wrapper
+
 
 @app.route('/oauth2callback')
 def oauth2callback():
@@ -95,11 +100,13 @@ def oauth2callback():
         return redirect(url_for('not_allowed'))
     return redirect(url_for('home'))
 
+
 @app.teardown_appcontext
 def close_db(error):
     """Closes the database again at the end of the request."""
     if hasattr(g, 'sqlite_db'):
         g.sqlite_db.close()
+
 
 def init_db():
     db = get_db()
@@ -107,11 +114,13 @@ def init_db():
         db.cursor().executescript(f.read())
     db.commit()
 
+
 @app.cli.command('initdb')
 def initdb_command():
     """Initializes the database."""
     init_db()
     print('Initialized the database.')
+
 
 @app.route('/')
 @auth
@@ -119,22 +128,31 @@ def home():
     ranking = compute_ranking()
     return render_template('home.html', ranking=ranking)
 
+
 @app.route('/add', methods=['POST'])
 @auth
 def add_match():
     if not request.form['team1_player1'] or not request.form['team2_player1']:
         return redirect(url_for('home'))
     db = get_db()
-    db.execute('insert into match (team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2) values (?, ?, ? ,?, ?, ?)', [request.form['team1_player1'], request.form['team1_player2'], request.form['team2_player1'], request.form['team2_player2'], request.form['score_team1'], request.form['score_team2']])
+    db.execute(
+        'insert into match (team1_player1, team1_player2, team2_player1, '
+        'team2_player2, score_team1, score_team2) values (?, ?, ? ,?, ?, ?)',
+        [request.form['team1_player1'], request.form['team1_player2'],
+         request.form['team2_player1'], request.form['team2_player2'],
+         request.form['score_team1'], request.form['score_team2']])
     db.commit()
     flash('Match ajouté avec succès !')
     return redirect(url_for('home'))
+
 
 @app.route('/list')
 @auth
 def list():
     db = get_db()
-    cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id desc')
+    cur = db.execute(
+        'select id, team1_player1, team1_player2, team2_player1, '
+        'team2_player2, score_team1, score_team2 from match order by id desc')
     matches = cur.fetchall()
     return render_template('list.html', matches=matches)
 
@@ -144,7 +162,9 @@ def compute_ranking():
     users = {name: User(name) for name in session["users"]}
 
     db = get_db()
-    cur = db.execute('select id, team1_player1, team1_player2, team2_player1, team2_player2, score_team1, score_team2 from match order by id asc')
+    cur = db.execute(
+        'select id, team1_player1, team1_player2, team2_player1, '
+        'team2_player2, score_team1, score_team2 from match order by id asc')
     matches = cur.fetchall()
     for match in matches:
         elo(users[match['team1_player1']], users.get(match['team1_player2']),
@@ -154,7 +174,7 @@ def compute_ranking():
 
 
 def elo(team1_player1, team1_player2, team2_player1, team2_player2,
-            score_team1, score_team2):
+        score_team1, score_team2):
     """Update the ranking of each players in parameters.
     Calculate the score of the match according to the following formula:
     Rn = Ro + KG (W - We)
