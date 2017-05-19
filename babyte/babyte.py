@@ -12,8 +12,9 @@ from oauth2client.client import OAuth2WebServerFlow
 
 app = Flask(__name__)
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'babyte.db'),
+    DATABASE='/tmp/babyte.db',
     SECRET_KEY='secret key',
+    TESTING=os.environ.get('TESTING'),
     OAUTH_CLIENT_ID='oauth client id',
     OAUTH_SECRET_KEY='oauth secret key',
     OAUTH_REDIRECT='http://localhost:5000/oauth2callback',
@@ -106,18 +107,12 @@ def close_db(error):
         g.sqlite_db.close()
 
 
+@app.cli.command('init_db')
 def init_db():
     db = get_db()
     with app.open_resource('babyte.sql', mode='r') as f:
         db.cursor().executescript(f.read())
     db.commit()
-
-
-@app.cli.command('initdb')
-def initdb_command():
-    """Initializes the database."""
-    init_db()
-    print('Initialized the database.')
 
 
 @app.route('/')
@@ -157,7 +152,7 @@ def list():
 
 def compute_ranking():
     """Get the list of all users with their current score."""
-    users = {name: User(name) for name in session["users"]}
+    users = {name: User(name) for name in session.get('users', [])}
 
     db = get_db()
     cur = db.execute(
