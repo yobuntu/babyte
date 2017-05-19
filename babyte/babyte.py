@@ -5,8 +5,8 @@ import sqlite3
 from functools import wraps
 
 import httplib2
-from flask import (Flask, abort, flash, g, redirect, render_template, request,
-                   session, url_for)
+from flask import (
+    Flask, flash, g, redirect, render_template, request, session, url_for)
 from oauth2client.client import OAuth2WebServerFlow
 
 
