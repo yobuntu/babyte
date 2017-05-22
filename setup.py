@@ -12,7 +12,6 @@ setup(
     author='Kozea',
     packages=find_packages(),
     include_package_data=True,
-    scripts=['babyte/babyte.py'],
     install_requires=[
         'flask',
         'oauth2client',

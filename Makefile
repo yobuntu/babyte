@@ -37,7 +37,7 @@ env:
 	$(RUN)
 
 run:
-	env FLASK_DEBUG=1 $(VENV)/bin/flask run
+	env TESTING=1 FLASK_DEBUG=1 $(VENV)/bin/flask run
 
 serve: run
 
