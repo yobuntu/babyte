@@ -1,4 +1,3 @@
-# all the imports
 import json
 import os
 import sqlite3
@@ -18,9 +17,8 @@ app.config.update(dict(
     OAUTH_CLIENT_ID='oauth client id',
     OAUTH_SECRET_KEY='oauth secret key',
     OAUTH_REDIRECT='http://localhost:5000/oauth2callback',
-    OAUTH_SCOPE=(
-        'https://www.googleapis.com/auth/contacts.readonly',
-        'https://www.googleapis.com/auth/plus.login')))
+    OAUTH_SCOPE='https://www.googleapis.com/auth/admin.directory.user.readonly'
+))
 app.config.from_envvar('BABYTE_SETTINGS', silent=True)
 
 
@@ -65,7 +63,7 @@ def auth(function):
     @wraps(function)
     def wrapper(*args, **kwargs):
         testing = app.config.get('TESTING')
-        if (session.get('users') and session.get('person')) or testing:
+        if (session.get('users') and session.get('logged_in')) or testing:
             return function(*args, **kwargs)
         return redirect(FLOW.step1_get_authorize_url())
     return wrapper
@@ -77,24 +75,12 @@ def oauth2callback():
     credentials = FLOW.step2_exchange(code)
     http = credentials.authorize(httplib2.Http())
     _, content = http.request(
-        "https://people.googleapis.com/v1/people/me")
+        'https://www.googleapis.com/admin/directory/v1/users?domain=kozea.fr')
     data = json.loads(content.decode('utf-8'))
-    if data.get('emailAddresses')[0].get('value').endswith('@kozea.fr'):
-        if 'names' in data:
-            session['person'] = data['names'][0]['displayName']
-        _, users_content = http.request(
-            "https://people.googleapis.com/v1/people/me/connections"
-            "?requestMask.includeField=person.names%2Cperson.emailAddresses"
-            "&pageSize=500")
-        users_data = json.loads(users_content.decode('utf-8'))
-        session['users'] = []
-        for connection in users_data['connections']:
-            if 'emailAddresses' in connection:
-                for address in connection['emailAddresses']:
-                    if address['value'].endswith('@kozea.fr'):
-                        fullname = address['value'].split('@')[0]
-                        session['users'].append(' '.join(fullname.split('.')))
-                        break
+    users = data.get('users', [])
+    if users:
+        session['logged_in'] = True
+        session['users'] = [user['name']['fullName'] for user in users]
     else:
         return redirect(url_for('not_allowed'))
     return redirect(url_for('home'))
