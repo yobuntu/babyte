@@ -1,11 +1,12 @@
-import json
 import os
 import sqlite3
 from functools import wraps
+from xml.etree import ElementTree as ET
 
 import httplib2
 from flask import (
-    Flask, flash, g, redirect, render_template, request, session, url_for)
+    Flask, abort, flash, g, redirect, render_template, request, session,
+    url_for)
 from oauth2client.client import OAuth2WebServerFlow
 
 
@@ -17,7 +18,8 @@ app.config.update(dict(
     OAUTH_CLIENT_ID='oauth client id',
     OAUTH_SECRET_KEY='oauth secret key',
     OAUTH_REDIRECT='http://localhost:5000/oauth2callback',
-    OAUTH_SCOPE='https://www.googleapis.com/auth/admin.directory.user.readonly'
+    OAUTH_SCOPE='https://www.google.com/m8/feeds/',
+    DOMAIN='kozea.fr'
 ))
 app.config.from_envvar('BABYTE_SETTINGS', silent=True)
 
@@ -75,15 +77,26 @@ def oauth2callback():
     credentials = FLOW.step2_exchange(code)
     http = credentials.authorize(httplib2.Http())
     _, content = http.request(
-        'https://www.googleapis.com/admin/directory/v1/users?domain=kozea.fr')
-    data = json.loads(content.decode('utf-8'))
-    users = data.get('users', [])
-    if users:
+        'https://www.google.com/m8/feeds/gal/'
+        '{}/full'.format(app.config['DOMAIN']))
+    root = ET.fromstring(content)
+    session['users'] = []
+    for entry in root:
+        if entry.tag == '{http://www.w3.org/2005/Atom}entry':
+            for item in entry:
+                if item.tag == '{http://schemas.google.com/gal/2009}type':
+                    if item.attrib['type'] != 'profile':
+                        break
+                if item.tag == '{http://schemas.google.com/g/2005}name':
+                    for name in item:
+                        if name.tag == (
+                                '{http://schemas.google.com/g/2005}fullName'):
+                            session['users'].append(name.text)
+    if session['users']:
         session['logged_in'] = True
-        session['users'] = [user['name']['fullName'] for user in users]
+        return redirect(url_for('home'))
     else:
-        return redirect(url_for('not_allowed'))
-    return redirect(url_for('home'))
+        return abort('404')
 
 
 @app.teardown_appcontext
