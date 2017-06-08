@@ -18,7 +18,7 @@ app.config.update(dict(
     OAUTH_CLIENT_ID='oauth client id',
     OAUTH_SECRET_KEY='oauth secret key',
     OAUTH_REDIRECT='http://localhost:5000/oauth2callback',
-    OAUTH_SCOPE='https://www.google.com/m8/feeds/',
+    OAUTH_SCOPE='https://www.googleapis.com/auth/contacts.readonly',
     DOMAIN='kozea.fr'
 ))
 app.config.from_envvar('BABYTE_SETTINGS', silent=True)
