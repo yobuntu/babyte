@@ -42,10 +42,12 @@
     <h2>Classement</h2>
     <table>
       {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
-        <tr>
-          <td>{{ user.name }}</td>
-          <td>{{ user.ranking }}</td>
-        </tr>
+        {% if user.number_of_match %}
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.ranking }}</td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
   </body>
