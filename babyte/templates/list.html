@@ -44,11 +44,11 @@
     {% for match in matches %}
       <dl>
         <dt>
-          <span>{{ match.team1_player1 }}</span>{% if match.team1_player2 %}<span>{{ match.team1_player2 }}</span>{% endif %}
+          <span>{{ match.team1_player1 }}</span>{% if match.team1_player2 %} <span>{{ match.team1_player2 }}</span>{% endif %}
         </dt>
         <dd>{{ match.score_team1 }}</dd>
         <dt>
-          <span>{{ match.team2_player1 }}</span>{% if match.team1_player2 %}<span>{{ match.team2_player2 }}</span>{% endif %}
+          <span>{{ match.team2_player1 }}</span>{% if match.team2_player2 %} <span>{{ match.team2_player2 }}</span>{% endif %}
         </dt>
         <dd>{{ match.score_team2 }}</dd>
       </dl>
