@@ -151,16 +151,29 @@ def list():
 
 def compute_ranking():
     """Get the list of all users with their current score."""
-    users = {name: User(name) for name in session.get('users', [])}
-
+    users = {}
     db = get_db()
     cur = db.execute(
         'select id, team1_player1, team1_player2, team2_player1, '
         'team2_player2, score_team1, score_team2 from match order by id asc')
     matches = cur.fetchall()
     for match in matches:
-        elo(users[match['team1_player1']], users.get(match['team1_player2']),
-            users[match['team2_player1']], users.get(match['team2_player2']),
+        if match['team1_player1'] not in users:
+            users[match['team1_player1']] = User(match['team1_player1'])
+        team1_player1 = users[match['team1_player1']]
+        if match['team2_player1'] not in users:
+            users[match['team2_player1']] = User(match['team2_player1'])
+        team2_player1 = users[match['team2_player1']]
+        team1_player2 = team2_player2 = None
+        if match['team1_player2']:
+            if match['team1_player2'] not in users:
+                users[match['team1_player2']] = User(match['team1_player2'])
+            team1_player2 = users[match['team1_player2']]
+        if match['team2_player2']:
+            if match['team2_player2'] not in users:
+                users[match['team2_player2']] = User(match['team2_player2'])
+            team2_player2 = users[match['team2_player2']]
+        elo(team1_player1, team1_player2, team2_player1, team2_player2,
             match['score_team1'], match['score_team2'])
     return users
 
