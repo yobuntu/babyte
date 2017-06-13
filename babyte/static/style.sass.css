@@ -226,9 +226,6 @@ table {
     table tbody tr td:last-child {
       font-size: 1rem; }
 
-#list h2 {
-  display: none; }
-
 section {
   padding: 0 15%; }
   section dl {
