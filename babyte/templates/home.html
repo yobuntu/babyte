@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <title>B.A.B.Y.T.E</title>
-    <link rel="stylesheet" href="static/style.sass.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.sass.css') }}">
   </head>
   <body id="home">
     <header>
@@ -44,7 +44,7 @@
       {% for user in ranking.values() | sort(attribute='ranking') | reverse %}
         {% if user.number_of_match %}
           <tr>
-            <td>{{ user.name }}</td>
+            <td><a href="{{ url_for('list', user=user.name) }}">{{ user.name }}</a></td>
             <td>{{ user.ranking }}</td>
           </tr>
         {% endif %}
