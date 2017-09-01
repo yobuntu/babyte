@@ -200,7 +200,14 @@ table
 
     tr
       td
-        padding: 1em
+        a
+          color: inherit
+          padding: 1em
+          text-decoration: inherit
+          transition: color .5s
+
+          &:hover, &:focus
+            color: $primary
 
       &:nth-child(2n)
         background: rgba($primary, .1)

@@ -139,12 +139,22 @@ def add_match():
 
 
 @app.route('/list')
+@app.route('/list/<user>')
 @auth
-def list():
+def list(user=None):
     db = get_db()
-    cur = db.execute(
-        'select id, team1_player1, team1_player2, team2_player1, '
-        'team2_player2, score_team1, score_team2 from match order by id desc')
+    if user:
+        cur = db.execute(
+            'select id, team1_player1, team1_player2, team2_player1, '
+            'team2_player2, score_team1, score_team2 from match '
+            'where team1_player1=? or team1_player2=? or '
+            'team2_player1=? or team2_player2=? order by id desc',
+            [user] * 4)
+    else:
+        cur = db.execute(
+            'select id, team1_player1, team1_player2, team2_player1, '
+            'team2_player2, score_team1, score_team2 from match '
+            'order by id desc')
     matches = cur.fetchall()
     return render_template('list.html', matches=matches)
 

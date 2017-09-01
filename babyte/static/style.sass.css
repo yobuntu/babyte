@@ -181,8 +181,13 @@ table {
   min-width: 70%; }
   table tbody {
     counter-reset: ranking; }
-    table tbody tr td {
-      padding: 1em; }
+    table tbody tr td a {
+      color: inherit;
+      padding: 1em;
+      text-decoration: inherit;
+      transition: color .5s; }
+      table tbody tr td a:hover, table tbody tr td a:focus {
+        color: #0a7bb8; }
     table tbody tr:nth-child(2n) {
       background: rgba(10, 123, 184, 0.1); }
     table tbody tr::before {
