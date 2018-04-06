@@ -48,6 +48,7 @@ check-outdated:
 	$(PIP) list --outdated --format=columns
 
 check: check-python check-outdated
+	$(LOG)
 
 build:
 
