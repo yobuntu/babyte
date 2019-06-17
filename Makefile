@@ -21,7 +21,7 @@ all: install serve
 	$(LOG)
 
 install:
-	test -d $(VENV) || virtualenv $(VENV)
+	test -d $(VENV) || virtualenv -p python3 $(VENV)
 	$(PIP) install --upgrade --no-cache pip setuptools -e .[test]
 
 install-db:
@@ -56,7 +56,7 @@ env:
 	$(RUN)
 
 run:
-	env TESTING=1 FLASK_DEBUG=1 $(VENV)/bin/flask run
+	env TESTING=1 FLASK_DEBUG=1 $(VENV)/bin/flask run --host=0.0.0.0
 
 serve: run
 	$(LOG)

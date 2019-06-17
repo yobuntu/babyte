@@ -23,12 +23,7 @@
         {% for player_number in (1,2) %}
         <label>
           Joueur {{ player_number }}
-          <select name="team{{ team_number }}_player{{ player_number }}">
-            <option value=""></option>
-            {% for user in session.users | sort %}
-              <option value="{{ user }}">{{ user }}</option>
-            {% endfor %}
-          </select>
+          <input type="text" name="team{{ team_number }}_player{{ player_number }}" />
         </label>
         {% endfor %}
         <label>

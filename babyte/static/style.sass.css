@@ -122,7 +122,7 @@ form {
     font-size: 0;
     line-height: 2rem;
     width: calc(100% - 8rem); }
-    form label:not(:last-child) select {
+    form label:not(:last-child) select, form label:not(:last-child) input {
       border-style: hidden;
       border-bottom-left-radius: .25em;
       border-bottom-right-radius: .25em;
@@ -132,14 +132,14 @@ form {
       margin-top: -3rem;
       padding: 0 .75em;
       transition: background .25s, color .25s;
-      width: 100%; }
-      form label:not(:last-child) select:blank {
+      width: 90%; }
+      form label:not(:last-child) select:blank, form label:not(:last-child) input:blank {
         background: red; }
-      form label:not(:last-child) select:focus {
+      form label:not(:last-child) select:focus, form label:not(:last-child) input:focus {
         background: #fff;
         color: #1C3740;
         outline: none; }
-      form label:not(:last-child) select option {
+      form label:not(:last-child) select option, form label:not(:last-child) input option {
         line-height: 3; }
   form label:last-of-type {
     float: right;
